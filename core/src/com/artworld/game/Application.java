@@ -15,7 +15,7 @@ public class Application extends ApplicationAdapter {
 	private CoreResources res;
 	public float w, h;
 
-	public static volatile boolean sDebug = true;
+	public static volatile boolean sDebug = false;
 	public static volatile boolean sCrypt = false;
 
 	@Override

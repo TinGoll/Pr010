@@ -3,6 +3,10 @@ package com.artworld.game.world;
 import com.artworld.game.Application;
 import com.artworld.game.states.BaseState;
 import com.artworld.game.states.PlayState;
+import com.artworld.game.world.entities.Creature;
+import com.artworld.game.world.entities.EntityType;
+import com.artworld.game.world.entities.GameObject;
+import com.artworld.game.world.entities.Pet;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,7 +29,35 @@ public class GameTiledMap extends GameMap {
         b2dr = new Box2DDebugRenderer();
         map = state.getTiledMapAsset().get();
         tmr = new OrthogonalTiledMapRenderer(map);
+        addPets(10);
     }
+
+    public void addPets(int n){
+        for (int i = 0; i < n; i++) {
+            Pet pet = new Pet();
+            pet.create(EntityType.getRandomEntityTupe(), 100,100, this);
+            gameObjects.add(pet);
+        }
+
+       for(GameObject object : gameObjects){
+            Pet pet = (Pet) object;
+           System.out.println(pet.getEntityType());
+       }
+    }
+
+    @Override
+    public void render(OrthographicCamera camera, SpriteBatch batch) {
+        super.render(camera, batch);
+        tmr.setView(camera);
+        tmr.render();
+        b2dr.render(world, camera.combined);
+    }
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+    }
+
+
     @Override
     public TileType getTileTypeByCoordinate(int layer, int col, int row) {
         TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) map.getLayers().get(layer)).getCell(col, row);
@@ -57,18 +89,6 @@ public class GameTiledMap extends GameMap {
     @Override
     public BaseState getState() {
         return state;
-    }
-    @Override
-    public void render(OrthographicCamera camera, SpriteBatch batch) {
-        super.render(camera, batch);
-        tmr.setView(camera);
-        tmr.render();
-        b2dr.render(world, camera.combined);
-    }
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-
     }
     @Override
     public void dispose() {

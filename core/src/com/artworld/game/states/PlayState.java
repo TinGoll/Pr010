@@ -32,7 +32,7 @@ public class PlayState extends BaseState {
         textureAtlasSkinAsset = new TextureAtlasAsset(app, "ui/skin.atlas");
         i18NBundleAsset = new I18NBundleAsset(app, "locale/locale");
         textureAsset = new TextureAsset(app, "graphics/Splash.png");
-        tiledMapAsset = new TiledMapAsset(app, Levels.getLevel(1).getPath());
+        tiledMapAsset = new TiledMapAsset(app, Levels.getLevel(2).getPath());
 
         assets = new BaseAsset[]{
                 skinAsset,
